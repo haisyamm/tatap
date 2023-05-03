@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController; //Mendaftarkan controller yang akan di eksekusi
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\DepartementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(
         })->name('home');
         
         Route::resource('positions', PositionController::class);
+        Route::resource('departements', DepartementController::class);
     });
