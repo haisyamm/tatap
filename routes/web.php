@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController; //Mendaftarkan controller yang akan di eksekusi
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RABController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,4 +36,13 @@ Route::middleware('auth')->group(
         
         Route::resource('positions', PositionController::class);
         Route::resource('departements', DepartementController::class);
+        Route::get('export-pdf/departements', 
+        [DepartementController::class, 'exportPdf']
+        )->name('departements.exportPdf');
+        Route::resource('rabs', RABController::class);
+        
+        Route::get('search/product', 
+        [ProductController::class, 'autocomplete']
+        )->name('search.product');
+
     });
