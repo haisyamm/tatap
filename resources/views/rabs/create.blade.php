@@ -51,13 +51,14 @@
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Location</th>
-                <th scope="col">Manager Name</th>
+                <th scope="col">Name Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">QTY</th>
+                <th scope="col">Sub Total</th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="detail">
                 
             </tbody>
         </table>
@@ -86,10 +87,58 @@
         },
         select: function (event, ui) {
            $('#search').val(ui.item.label);
-           console.log(ui.item); 
+           add(ui.item.id);
+        //    console.log(ui.item); 
            return false;
         }
       });
+
+    function add(id){
+        // console.log(id);
+        const path = "{{ route('products.index') }}/"+id;
+        var html = "";
+        var no=0;
+        $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            
+            success: function( data ) {
+                if($('#detail tr').length > no){
+                    html = $('#detail').html();
+                    no = $('#detail tr').length;
+                }
+                no++;
+                html+='<tr>'+
+                        '<td>'+
+                            '<input type="hidden" name="productId'+no+'" class="form-control" value="'+data.id+'">'+
+                            '<span>'+no+'</span>'+
+                        '</td>'+
+                        '<td>'+
+                            '<input type="text" name="productName'+no+'" class="form-control" value="'+data.name+'" >'+
+                        '</td>'+
+                        '<td>'+
+                            '<input type="text" name="price'+no+'" class="form-control" value="'+data.price+'" >'+
+                        '</td>'+
+                        '<td>'+
+                            '<input type="number" name="qty'+no+'" class="form-control" oninput="sumQty('+no+',this.value)">'+
+                        '</td>'+
+                        '<td>'+
+                            '<input type="number" name="sub_total'+no+'" class="form-control" >'+
+                        '</td>'+
+                    '</tr>';
+
+                    $('#detail').html(html);
+            }
+          });
+    }
+
+    function sumQty(no, q){
+        var price = $("input[name=price"+no+"]").val();
+        var subtotal = q*parseInt(price);
+        $("input[name=sub_total"+no+"]").val(subtotal);
+        console.log(q+"*"+price+"="+subtotal);
+    }
   
 </script>
 @endsection

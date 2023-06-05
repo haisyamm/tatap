@@ -13,7 +13,7 @@ class RABController extends Controller
         $title = "Data RAB";
         $rabs = RAB::orderBy('id','asc')->paginate(5);
         return view('rabs.index', compact('rabs', 'title'));
-    }
+    } 
 
     public function create()
     {
@@ -25,11 +25,9 @@ class RABController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'location' => 'required',
-            'manager_id' => 'required',
+            'no_rab' => 'required'
         ]);
-        
+        dd($request);
         RAB::create($request->post());
         return redirect()->route('rabs.index')->with('success','rabs has been created successfully.');
     }

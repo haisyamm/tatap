@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('r_a_b_details', function (Blueprint $table) {
             $table->id();
+            $table->string('no_rab')->nullable();
             $table->integer('id_product')->nullable();
             $table->integer('price')->nullable();
             $table->integer('qty')->nullable();

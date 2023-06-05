@@ -45,4 +45,6 @@ Route::middleware('auth')->group(
         [ProductController::class, 'autocomplete']
         )->name('search.product');
 
+        Route::resource('products', ProductController::class);
+
     });
