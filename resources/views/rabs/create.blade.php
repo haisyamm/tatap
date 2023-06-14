@@ -168,7 +168,7 @@
     }
 
     function sumTotal(){
-    var total = "";
+    var total = 0;
        for (let i = 1; i <=  $("input[name=jml]").val(); i++) {
         var sub = $("input[name=sub_total"+i+"]").val();
         total = total + parseInt(sub);
